@@ -1,6 +1,13 @@
 <form class="card" [formGroup]="fg" (ngSubmit)="submit()">
   <h2>Войти в панель администратора</h2>
 
+  <div class="alert alert-danger" *ngIf="auth.error$ | async as errorMessage">
+    {{ errorMessage }}
+  </div>
+  <div class="alert alert-info" *ngIf="infoMessage">
+    {{ infoMessage }}
+  </div>
+
   <div
     class="form-control"
     [ngClass]="{invalid: fg.get('email').touched && fg.get('email').invalid}"
@@ -32,6 +39,6 @@
   <button
     type="submit"
     class="btn btn-primary"
-    [disabled]="fg.invalid"
+    [disabled]="fg.invalid || submitted"
   >Войти</button>
 </form>
